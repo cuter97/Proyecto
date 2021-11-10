@@ -1,126 +1,169 @@
-const productos = [{id: 1, producto: "IPA 1L", precio: 120},
-                {id: 2, producto: "Amber Lager 1L", precio: 100},
-                {id: 3, producto: "Red Ipa 1L", precio: 140},
-                {id: 4, producto: "Pilsen 1L", precio: 90}];
-                
-const carrito = [];
-// const total = 0;
-const DOMitems = document.getElementById("items");
-const DOMcarrito = document.getElementById("carrito");
-const DOMtotal = document.getElementById("total");
+
+// para despues usar una api xd
+// document.addEventListener("DOMContentLoaded", () =>{
+//     fetchData();
+// });
+
+// const fetchData = async () => {
+//     try {
+//         const res = await fetch('https://my-json-server.typicode.com/cuter97/API/productos');
+//         const data = await res.json();
+//         pintarProductos(data);
+//         //console.log(data);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+const productos = [
+    {id: 1, producto: "IPA 1L", precio: 120},
+    {id: 2, producto: "Amber Lager 1L", precio: 100},
+    {id: 3, producto: "Red Ipa 1L", precio: 140},
+    {id: 4, producto: "Pilsen 1L", precio: 90},
+    {id: 5, producto: "Quilmes 1L", precio: 110},
+    {id: 6, producto: "Palermo 1L", precio: 20},
+    {id: 7, producto: "Schneider 1L", precio: 115},
+    {id: 8, producto: "Ander 1L", precio: 190} 
+    ];
+
+const contenedorProductos = document.querySelector('#contenedor-productos');
+
+const pintarProductos = () => {
+     const template = document.querySelector('#template-productos').content;
+     const fragment = document.createDocumentFragment();
+     productos.forEach(item => {
+        //  template.querySelector('img').setAttribute('src',item.imagen);
+         template.querySelector('h5').textContent = item.producto;
+         template.querySelector('p').textContent = '$' + item.precio;
+
+        //  colocamos el id correspondiente de cada producto en el boton
+        template.querySelector('button').dataset.id = item.id;
+
+         const clone = template.cloneNode(true);
+         fragment.appendChild(clone);
+     });
+     contenedorProductos.appendChild(fragment);
+}
 
 
-function crearProductos(){
-        productos.forEach(info => {
-            // nodo principal
-            const Nodo = document.createElement('div');
+let carrito = {}
 
-            // body
-            const NodoBody = document.createElement('div');
+const detectarBotones = () => {
+    // buscamos dentro de .card los botones y los almacenamos 
+    const botones = document.querySelectorAll('.card button');
 
-            // nombre birra
-            const NodoTitulo = document.createElement('h4');
-            NodoTitulo.textContent = info.producto;
-
-            // precio
-            const NodoPrecio = document.createElement('p');
-            NodoPrecio.textContent = info.precio + '$';
-
-            // boton de agregar al carrito
-            const NodoBoton = document.createElement('button');
-            NodoBoton.textContent = 'agregar';
-            NodoBoton.setAttribute('marcador',info.id);
-            NodoBoton.addEventListener('click',agregarProductoCarrito);
-
-
-            // agregamos items
-            NodoBody.appendChild(NodoTitulo);
-            NodoBody.appendChild(NodoPrecio);
-            NodoBody.appendChild(NodoBoton);
-            Nodo.appendChild(NodoBody);
-            DOMitems.appendChild(Nodo);
-            
+    botones.forEach(btn =>{
+        btn.addEventListener('click', () => {
+            const prod = productos.find(item => item.id === parseInt(btn.dataset.id));
+            prod.cantidad = 1;
+            if (carrito.hasOwnProperty(prod.id)) {
+                prod.cantidad = carrito[prod.id].cantidad + 1 ;
+            }
+            carrito[prod.id] = { ...prod }
+            pintarCarrito();
         });
-    }
+    });
+}
 
-    function agregarProductoCarrito(evento){
-        // agregamos el nodo al carrito
-        let aux = evento.target.getAttribute('marcador');
-        carrito.push(aux);
-        // calculamos el total
-        calcularTotal();
-        // actualizamos el carrito
-        imprimirCarrito();
-    }
+const items = document.querySelector('#items');
+
+const pintarCarrito = () => {
+    items.innerHTML = '';
+    const template = document.querySelector('#template-carrito').content;
+    const fragment = document.createDocumentFragment();
+
+    // transformamos el objeto carrito en un array para recorrerolo con un foreach
+    Object.values(carrito).forEach(item2 => {
+        template.querySelector('th').textContent = item2.id;
+        template.querySelectorAll('td')[0].textContent = item2.producto;
+        template.querySelectorAll('td')[1].textContent = item2.cantidad;
+        template.querySelector('span').textContent = item2.precio * item2.cantidad;
+
+
+        // botones
+        template.querySelector('.btn-info').dataset.id = item2.id;
+        template.querySelector('.btn-danger').dataset.id = item2.id;
+
+        const clone = template.cloneNode(true);
+        fragment.appendChild(clone);
+    });
+    items.appendChild(fragment);
+
+    pintarFooter();
+    accionBotones();
+
+    localStorage.setItem('carrito', JSON.stringify(carrito))
+}
+
+
+const footer = document.querySelector('#footer-carrito'); 
+const pintarFooter = () => {
+    footer.innerHTML = '';
     
-    // imprimimos todos los productos guardados en el carrito
-    function imprimirCarrito(){
-        // vaciamos el carrito
-        DOMcarrito.textContent = ' ';
+     if (Object.keys(carrito).length === 0) {
+         footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`
+         return
+     }
 
-        // El objeto Set permite almacenar valores únicos de cualquier tipo con esto evitamos los valores repetidos
-        let carritoSinDuplicados = [...new Set(carrito)];
+    const template = document.querySelector('#template-footer').content;
+    const fragment = document.createDocumentFragment();  
+    // sumar cantidad y sumar totales
+    const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0);
+    const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio ,0);  
 
-        carritoSinDuplicados.forEach(item => {
+    template.querySelectorAll('td')[0].textContent = nCantidad
+    template.querySelector('span').textContent = nPrecio
 
-            // Obtenemos el item que necesitamos de la variable base de datos
-            let miItem = productos.filter(itemProductos => {
-            return itemProductos.id === parseInt(item);
-            });
+    const clone = template.cloneNode(true)
+    fragment.appendChild(clone)
 
-            // Cuenta el número de veces que se repite el producto
-            //El método reduce() ejecuta una función reductora sobre cada elemento de un array, devolviendo como resultado un único valor.
-            let contador = carrito.reduce((total, itemId) => {
-            // operador ternario
-            return itemId === item ? total += 1 : total;
-            }, 0);
+    footer.appendChild(fragment)
 
-            // Creamos el nodo del item del carrito
-            let miNodo = document.createElement('li');
-            miNodo.textContent = `${contador} x ${miItem[0].nombre} - ${miItem[0].precio}$`;
+    // boton de vaciar carrito
+    const boton = document.querySelector('#vaciar-carrito');
+    boton.addEventListener('click', () => {
+        carrito = {}
+        pintarCarrito();
+        localStorage.clear();
+    })
+}
+
+const accionBotones = () => {
+    const botonesAgregar = document.querySelectorAll('#items .btn-info');
+    const botonesEliminar = document.querySelectorAll('#items .btn-danger');
+
+    botonesAgregar.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const prod = carrito[btn.dataset.id];
+            prod.cantidad ++ ;
+            carrito[btn.dataset.id] = { ...prod }
+            pintarCarrito();
+        });
+    });
+
+    botonesEliminar.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const prod = carrito[btn.dataset.id];
+            prod.cantidad -- ;
+            if (prod.cantidad === 0) {
+                delete carrito[btn.dataset.id];
+            } else 
+                carrito[btn.dataset.id] = { ...prod }
             
-            // Boton de borrar
-            let miBoton = document.createElement('button');
-            miBoton.textContent = 'X';
-            miBoton.dataset.item = item;
-            miBoton.addEventListener('click', borrarItemCarrito);
-            // Mezclamos nodos
-            miNodo.appendChild(miBoton);
-            DOMcarrito.appendChild(miNodo);
-        });
+            pintarCarrito();
+        })
+    })
+}
+
+const cargarLocalStorage = () => {
+    // si existe un carrito cargado lo imprimimos
+    if (localStorage.getItem('carrito')) {
+        carrito = JSON.parse(localStorage.getItem('carrito'));
     }
-
-    function borrarItemCarrito(evento){
-        // Obtenemos el producto ID que hay en el boton pulsado
-        let id = evento.target.dataset.item;
-
-        // buscamos la pocision en que se encuentra y la eliminamos
-        let aux = carrito.indexOf(id);
-        carrito.splice(aux,1);
-
-        // volvemos a imprimir
-        imprimirCarrito();
-        // Calculamos de nuevo el precio
-        calcularTotal();
-    }
-
-    function calcularTotal(){
-        // Limpiamos precio anterior
-        let total = 0;
-        // Recorremos el array del carrito
-        carrito.forEach(item => {
-            // De cada elemento obtenemos su precio
-            const miItem = productos.filter((itemProductos) => {
-                return itemProductos.id === parseInt(item);
-            });
-            total = total + miItem[0].precio;
-        });
-        // Renderizamos el precio en el HTML
-        DOMtotal.textContent = total;
-    }
-
-
-
-// // main
-
-crearProductos();
+}
+//main
+cargarLocalStorage();
+pintarProductos();
+detectarBotones();
+pintarCarrito();
+pintarFooter();

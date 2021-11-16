@@ -1,0 +1,146 @@
+footer{
+    background: nth($colores-footer , 1 );
+    padding: 1.25rem;
+    
+}
+
+.parrafoFooter{
+    text-align: center;
+    margin-bottom: 1.25rem;
+    font-size: 20px;
+    font-family: 'Nanum Gothic bold', sans-serif;
+    font-weight: bold;
+    color: #b8343e;
+}
+
+.contenedor{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "columna1 columna2 columna3";
+    column-gap: 10px;
+
+    .color-icono{
+    font-size: 30px;
+    color: #fff;
+    margin-bottom: 0.625rem;  
+    }
+
+    .nav-contenedor{
+        display: flex;
+        justify-content: center;
+        @extend %decoration-none;
+        padding: 0%;
+    }
+
+
+
+    /* COLUMNA 1 */
+    .imagen_logos_redes{
+         margin: 1.25rem;
+
+        
+        a{
+            @extend %propiedades-2;
+            flex-direction: column;
+            @extend %decoration-none;
+            
+            color: #fff;
+            font-size: 10px;
+        }
+        .color-twitter,.fa-twitter{
+            &:hover{
+                color: rgb(59, 221, 226);
+            }
+        }
+        .color-face,.fa-facebook-f{
+            &:hover{
+                color: rgb(57, 54, 212);
+            }
+        }
+        .color-insta,.fa-instagram{
+            &:hover{
+                color: rgb(177, 38, 38);
+            }
+        }
+    }
+
+    /* COLUMNA2 */
+    .imagen-logo-mail{
+
+        @extend %propiedades-2;
+        flex-direction: column;
+        .footer-1{
+            @extend %propiedades-3;
+            
+            p{
+                margin-bottom: 0.625rem;
+            }
+        }
+        
+        .footer-2{
+            .correo{
+                margin: 1.25rem 0rem;
+            }
+            li{
+                @extend %decoration-none;  
+                a{
+                    @extend %decoration-none;  
+                    color: #fff;
+                    &:hover{
+                        color: #a4af04;
+                        @include size(phone){
+                            &:hover{
+                                color:#e43905;
+                            }
+                        }
+                    }                  
+                }
+            }
+        }
+
+        .correo{
+            margin-left: 0.625rem;
+            font-family: 'Nanum Gothic bold', sans-serif;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #fff;
+        }
+    }
+
+    /* COLUMNA3 */
+    .columna_3{
+        @extend %propiedades-3;
+
+        .logo__footer{ /*tamaño logo*/
+            @include dimensiones(11.875rem,11.875rem);
+            border-radius: 1000px;
+            border: 2px solid nth($colores-footer, 3 );
+        }
+    }
+    /*footer adaptado a tablet*/
+    @include size(tablet) {
+        grid-template-columns: 100%;
+        row-gap: 10px; /* espacio entre filas */
+        grid-template-areas: unset;
+    }
+
+    /*footer adaptado a celular*/
+    @include size(phone) {
+
+        grid-template-columns: 100%;
+        row-gap: 10px; /* espacio entre filas */
+        grid-template-areas: unset;
+
+        .imagen_logos_redes{
+            margin: 10px;
+        }
+        .imagen-logo-mail{
+            justify-content: center;
+            .correo{
+                margin-bottom: 0px;
+            }
+            
+        }
+    }
+}

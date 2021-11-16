@@ -1,0 +1,69 @@
+%propiedades{
+    display: flex;
+    justify-content: center;
+}
+%propiedades-2{
+    display: flex;
+    align-items: center;
+}
+%propiedades-3{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+%decoration-none{
+    list-style: none;
+    text-decoration: none;
+}
+%imagen{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+$colores-footer:
+    #212529,    
+    #161515,
+    black;
+
+
+
+@mixin dimensiones($height,$widht) {
+    height: $height;
+    width: $widht;
+} 
+
+@mixin radioBottom($bottomLeft,$bottomRigth) {
+    border-bottom-left-radius:$bottomLeft;
+    border-bottom-right-radius: $bottomRigth;
+} 
+
+//@content es una directiva de Sass que permite la inserción de contenido más adelante
+@mixin size($size) {
+    @if $size == phone {
+        @media screen and (min-width: 0px) and (max-width: 480px) {
+            @content;
+        }
+    }@else if $size == tablet {
+        @media screen and (min-width: 481px) and (max-width: 1030px) {
+            @content;
+        }
+    }   
+    @else if $size == otro {
+        @media screen and (min-width: 0px) and (max-width: 768px) {
+            @content;
+        }
+    }   
+}
+
+@mixin display($flex-direction,$align) {
+        flex-direction: $flex-direction;
+        align-items: $align;
+}
+
+@mixin display-2($flex,$align,$justify) {
+        display: $flex;
+        align-items: $align;
+        justify-content: $justify;
+}

@@ -23,16 +23,20 @@
   border-width: 0;
   background-color: transparent;
   text-transform: uppercase; }
+  @media screen and (min-width: 0px) and (max-width: 480px) {
+    .mi-boton {
+      font-size: 20px; } }
 
 .mi-boton:hover {
   color: #57bde6; }
 
 body {
-  background: linear-gradient(10deg, #ff9100 0%, #bbff00 100%); }
+  background: linear-gradient(10deg, #ff9100 0%, #00c3ff 130%); }
 
 footer {
   background: #212529;
-  padding: 1.25rem; }
+  padding: 1.25rem;
+  padding: 60px; }
 
 .parrafoFooter {
   text-align: center;
@@ -115,3 +119,29 @@ footer {
         justify-content: center; }
         .contenedor .imagen-logo-mail .correo {
           margin-bottom: 0px; } }
+
+.clase-header .animation {
+  background-color: #f8f9fa;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .clase-header .animation p {
+    margin-bottom: 0px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif; }
+    @media screen and (min-width: 0px) and (max-width: 480px) {
+      .clase-header .animation p {
+        font-size: 22px; } }
+
+.efecto-cartas {
+  transform: translateY(200px);
+  transition-delay: 0.5s;
+  transition: 1s;
+  opacity: 0; }
+
+.inView {
+  opacity: 1;
+  transform: translateY(0px); }

@@ -11,11 +11,18 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- link css de iconos  -->
     <link rel="stylesheet" href="css/all.min.css">
-
+    <!-- link jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>cerveceria</title>
 </head>
 <body>
 
+    <header class="clase-header">
+        <div class="animation">
+            <p class="animation1">HOPS Cerveceria</p>
+            <p class="animation2">Productos Artesanales</p>
+        </div>
+    </header>
 
     <!-- NAV -->
     <nav class="navbar bg-light sticky-top">
@@ -44,7 +51,7 @@
     
             <h1 class="text-center mb-0 p-5">CERVEZAS</h1>
             
-            <div class="row" id="contenedor-productos"></div>
+            <div class="row efecto-cartas" id="contenedor-productos"></div>
            
             <template id="template-productos">
                 <div class="col-12 col-md-4 my-4">
@@ -54,10 +61,18 @@
                         <img src="" class="card-img-top" alt=""> 
                         <div class="card-body">
                             
+                            <!-- <p class="info-producto">info</p> -->
+                            <div class="info-producto collapse">
+                                <div class="card card-body">
+                                  Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                </div>
+                            </div>
                             <h5 class="card-title text-center">TITULO</h5>
                             <p class="card-text">precio</p>
-                            <button class="btn btn-warning">COMPRAR</button>
-            
+                            <button class="boton-comprar btn btn-warning" type="button">COMPRAR</button>
+
+                            <button class="boton-info btn btn-light mx-3" type="button" data-bs-toggle="collapse" 
+                             aria-expanded="false" >Info</button> 
                         </div>
             
                     </div>
@@ -192,9 +207,9 @@
 
     </footer>
 
-    <script src="app.js"></script>
-    <script src="bootstrap-5.1.3-dist/js/jquery-3.6.0.min.js"></script>
     <script src="bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script src="animaciones.js"></script>
 
 </body>
 </html>

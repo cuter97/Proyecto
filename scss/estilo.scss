@@ -12,6 +12,10 @@
     border-width: 0;
     background-color: transparent;
     text-transform: uppercase;
+
+    @include size(phone){
+        font-size: 20px;
+    }
 }
 
 .mi-boton:hover{
@@ -19,7 +23,43 @@
 }
 
 body{
-    background: linear-gradient(10deg,rgb(255, 145, 0) 0%,rgb(187, 255, 0) 100%);
+    background: linear-gradient(10deg,rgb(255, 145, 0) 0%,rgb(0, 195, 255) 130%);
 }
 
 @import 'footer';
+
+.clase-header{
+
+    .animation{
+        background-color: rgb(248,249,250);
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
+        p{
+            margin-bottom: 0px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            font-size: 40px;
+            font-family: 'Times New Roman', Times, serif;
+            
+            @include size(phone){
+                font-size: 22px;
+            }
+        }
+    
+    }
+
+}
+.efecto-cartas {
+    transform: translateY(200px);
+    transition-delay: 0.5s;
+    transition: 1s;
+    opacity: 0; 
+}
+.inView {
+    opacity: 1;
+    transform: translateY(0px);
+}
+

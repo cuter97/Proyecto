@@ -28,10 +28,17 @@
     <nav class="navbar bg-light sticky-top">
     
          <ul class="container-fluid nav nav-pills my-3 mx-5" id="pills-tab" role="tablist">
-
+            
                 <li class="nav-item mx-2" role="presentation">
-                    <button class="mi-boton" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+                    <button class="mi-boton" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                        <i class="fas fa-beer"></i>
+                        Home
+                    </button>
                 </li>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="mi-boton corrimiento" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Nosotros</button>
+                </li> -->
+            
                 
                 <li class="nav-item mx-2" role="presentation">
                     <button class="mi-boton" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
@@ -44,7 +51,7 @@
           </ul>
     </nav>
 
-    
+        
     <section class="container">
         <!-- HOME   -->
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -62,9 +69,9 @@
                         <div class="card-body">
                             
                             <!-- <p class="info-producto">info</p> -->
-                            <div class="info-producto collapse">
+                            <div class="info-producto collapse mb-4">
                                 <div class="card card-body">
-                                  Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                  info producto
                                 </div>
                             </div>
                             <h5 class="card-title text-center">TITULO</h5>
@@ -92,8 +99,7 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Item</th>
+                            <th scope="col">Producto</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Acción</th>
                             <th scope="col">Total</th>
@@ -110,19 +116,24 @@
             
             
                 <template id="template-footer">
-                    <th scope="row" colspan="2">Total productos</th>
+                    <th scope="row">Total productos</th>
                     <td>10</td>
                     <td>
                         <button class="btn btn-danger btn-sm" id="vaciar-carrito">
-                            vaciar todo
+                            VACIAR CARRITO
                         </button>
                     </td>
                     <td class="font-weight-bold">$ <span>5000</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" id="vaciar-carrito">
+                            COMPRAR
+                        </button>
+                    </td>
                 </template>
                 
                 <template id="template-carrito">
                   <tr>
-                    <th scope="row">id</th>
+                    <!-- <th scope="row">id</th> -->
                     <td>PRODUCTO</td>
                     <td>1</td>
                     <td>
@@ -144,7 +155,7 @@
         </div>
     </section>
 
-       <!-- redes sociales -->
+       <!-- FOOTER redes sociales -->
        <footer class="contenedor">
 
         <!-- COLUMNA 1 -->
@@ -191,11 +202,6 @@
                     <i class="color-icono fas fa-envelope"></i>
                     <p class="correo">ejemplo@gmail.com</p>
                 </div>
-            
-                <ul class="footer-2">
-                    <li class="correo"><a href="#">contacto</a></li>
-                    <li class="correo"><a href="#">sobre nosotros</a></li>
-                </ul>
 
             </div>
         </div>

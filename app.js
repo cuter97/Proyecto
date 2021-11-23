@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 const fetchData = async () => {
     try {
+        /*esta api la cree en jsonserver, es una api falsa */
         const res = await fetch('https://my-json-server.typicode.com/cuter97/API/productos');
         const data = await res.json();
         pintarProductos(data);
@@ -70,7 +71,7 @@ const pintarCarrito = () => {
 
     // transformamos el objeto carrito en un array para recorrerolo con un foreach
     Object.values(carrito).forEach(item2 => {
-        template.querySelector('th').textContent = item2.id;
+        // template.querySelector('th').textContent = item2.id;
         template.querySelectorAll('td')[0].textContent = item2.producto;
         template.querySelectorAll('td')[1].textContent = item2.cantidad;
         template.querySelector('span').textContent = item2.precio * item2.cantidad;
@@ -108,7 +109,7 @@ const pintarFooter = () => {
     const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0);
     const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio ,0);  
 
-    template.querySelectorAll('td')[0].textContent = nCantidad
+    // template.querySelectorAll('td')[0].textContent = nCantidad
     template.querySelector('span').textContent = nPrecio
 
     const clone = template.cloneNode(true)
@@ -177,10 +178,17 @@ const botonX = () => {
 $("#pills-home-tab").on('click', () => {
     document.querySelector('#pills-home').style.display = "block";
     document.querySelector('#pills-tabContent').style.display = "none";
+    // document.querySelector('#pills-contact').style.display = "none";
 });
 
 $("#pills-profile-tab").on('click', () => {
+    // document.querySelector('#pills-contact').style.display = "none";
     document.querySelector('#pills-home').style.display = "none";
     document.querySelector('#pills-tabContent').style.display = "block";
 });
+// $("#pills-contact-tab").on('click', () => {
+//     document.querySelector('#pills-contact').style.display = "block";
+//     document.querySelector('#pills-home').style.display = "none";
+//     document.querySelector('#pills-tabContent').style.display = "none";
+// });
 

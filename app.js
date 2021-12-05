@@ -23,30 +23,31 @@ const contenedorProductos = document.querySelector('#contenedor-productos');
 
 
  // uso de jquery
-const pintarProductos = (data) => {
-    const template = document.querySelector('#template-productos').content;
-    const fragment = document.createDocumentFragment();
-    data.forEach(item => {
-        template.querySelector('img').setAttribute('src',item.imagen);
-        template.querySelector('h5').textContent = item.producto;
-        template.querySelector('.info-producto').textContent = item.info;
-        template.querySelector('.card-text').textContent = 'Precio: $' + item.precio;
-        
-        //  colocamos el id correspondiente de cada producto en el boton
-        template.querySelector('.boton-comprar').dataset.id = item.id;
-        template.querySelector('.boton-info').setAttribute('data-bs-target', `#collapse${item.id}`);
-        template.querySelector('.boton-info').setAttribute('aria-controls', `collapse${item.id}`);
-        template.querySelector('.info-producto').setAttribute('id', `collapse${item.id}`);
-        
-        const clone = template.cloneNode(true);
-        fragment.append(clone);
-    });
-    contenedorProductos.appendChild(fragment);
-}
+ const pintarProductos = (data) => {
+     const template = document.querySelector('#template-productos').content;
+     const fragment = document.createDocumentFragment();
+     data.forEach(item => {
+         template.querySelector('img').setAttribute('src',item.imagen);
+         template.querySelector('h5').textContent = item.producto;
+         template.querySelector('.info-producto').textContent = item.info;
+         template.querySelector('.card-text').textContent = 'Precio: $' + item.precio;
+         
+         //  colocamos el id correspondiente de cada producto en el boton
+         template.querySelector('.boton-comprar').dataset.id = item.id;
+         template.querySelector('.boton-info').setAttribute('data-bs-target', `#collapse${item.id}`);
+         template.querySelector('.boton-info').setAttribute('aria-controls', `collapse${item.id}`);
+         template.querySelector('.info-producto').setAttribute('id', `collapse${item.id}`);
+         
+         const clone = template.cloneNode(true);
+         fragment.append(clone);
+        });
+        contenedorProductos.appendChild(fragment);
+    }
     
-let carrito = {}
-
-const detectarBotones = (data) => {
+    let carrito = {}
+   
+    
+    const detectarBotones = (data) => {
     // buscamos dentro de .card los botones y los almacenamos 
     const botones = document.querySelectorAll('.card .boton-comprar');
 
@@ -110,7 +111,8 @@ const pintarFooter = () => {
     const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio ,0);  
 
     // template.querySelectorAll('td')[0].textContent = nCantidad
-    template.querySelector('span').textContent = nPrecio
+    template.querySelector('span').textContent = nPrecio;
+    template.querySelectorAll('td')[0].textContent = nCantidad;
 
     const clone = template.cloneNode(true)
     fragment.appendChild(clone)
@@ -125,8 +127,12 @@ const pintarFooter = () => {
         localStorage.clear();
     });
 
-    $('#num-carrito').text(nCantidad); 
-
+    $('#num-carrito').text(nCantidad);
+    
+    $('#btn-compra').on('click', () => {
+        $('#btn-compra').text('PROXIMAMENTE');
+    });
+    
 }
 
 const accionBotones = () => {
@@ -186,9 +192,4 @@ $("#pills-profile-tab").on('click', () => {
     document.querySelector('#pills-home').style.display = "none";
     document.querySelector('#pills-tabContent').style.display = "block";
 });
-// $("#pills-contact-tab").on('click', () => {
-//     document.querySelector('#pills-contact').style.display = "block";
-//     document.querySelector('#pills-home').style.display = "none";
-//     document.querySelector('#pills-tabContent').style.display = "none";
-// });
 
